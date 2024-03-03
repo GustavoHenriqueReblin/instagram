@@ -1,9 +1,12 @@
 import './timeline.scss';
+import LoadingMeta from '../../components/LoadingMeta/LoadingMeta';
+import NavBar from '../../components/NavBar/NavBar';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+
 import React, { useState } from "react";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import LoadingMeta from '../../components/LoadingMeta/LoadingMeta';
-import NavBar from '../../components/NavBar/NavBar';
 
 function Timeline() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -24,6 +27,9 @@ function Timeline() {
             { loading ? (<LoadingMeta></LoadingMeta>) : (
                 <main className='timeline'>
                     <NavBar />
+                    <Header />
+
+                    <Footer />
                 </main>
             )}
         </>
