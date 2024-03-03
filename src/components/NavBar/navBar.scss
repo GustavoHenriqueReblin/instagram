@@ -1,0 +1,70 @@
+@import './src/variables.scss';
+
+.navbar {
+    @media screen and (min-width: 1px) {
+        display: none;
+    }
+    
+    @media screen and (min-width: 1196px) {
+        display: block;
+
+        height: 100%;
+        width: 248px;
+        padding: 26px;
+        background-color: $bg-color;
+        border-right: 1px solid darken($color: $border-color, $amount: 70%);  
+        
+        .logo {
+            font-size: 40px;
+            height: 12%;
+            color: $text-color;
+            font-family: "Cookie", cursive;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .links {
+            height: 88%;
+            color: $text-color;
+            display: flex;
+            flex-direction: column;
+            margin-left: -12px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+
+            .item {
+                width: 100%;
+                border-radius: 12px;
+                padding: 10px 12px;
+                margin: 4px 0;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                .profile {
+                    height: 24px;
+                    width: 24px;
+                    border-radius: 50%;
+                    background-color: $border-color;
+                    margin-right: 14px;
+                }
+
+                .icon {
+                    font-size: 24px;
+                    margin-right: 14px;
+                }
+
+                &:hover {
+                    background-color: rgb(36, 36, 36);
+                    cursor: pointer;
+                }
+
+                &.fixed {
+                    position: absolute;
+                    bottom: 0px;
+                }
+            }
+        }
+    }
+}
