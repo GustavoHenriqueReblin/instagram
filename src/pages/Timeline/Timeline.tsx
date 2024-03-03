@@ -1,19 +1,29 @@
 import './timeline.scss';
-import React from "react";
+import React, { useState } from "react";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import LoadingMeta from '../../components/LoadingMeta/LoadingMeta';
 
 function Timeline() {
+    const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
     const cookieName = process.env.REACT_APP_COOKIE_NAME_USER_TOKEN;
     if (cookieName) {
         const userToken = Cookies.get(cookieName);
         !userToken && navigate('/login');
-    }
+    };
+
+    loading && setTimeout(() => {
+        setLoading(false);
+    }, Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000);
 
     return (
-        <span>Timeline</span>
+        <>
+            { loading ? (<LoadingMeta></LoadingMeta>) : (
+                <span>Carregou</span>
+            )}
+        </>
     )
 }
 
