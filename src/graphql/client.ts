@@ -5,7 +5,8 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 
 const httpLink = new HttpLink({
-  uri: `http:${process.env.REACT_APP_API_URL}/graphql`
+  uri: `http:${process.env.REACT_APP_API_URL}/graphql`,
+  credentials: 'same-origin'
 });
 
 const wsLink = new GraphQLWsLink(createClient({

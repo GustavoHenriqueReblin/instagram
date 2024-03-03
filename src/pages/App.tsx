@@ -3,6 +3,9 @@ import ResponsiveProvider from "../components/ResponsiveProvider";
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { AuthProvider } from "../contexts/userContext";
+import Login from "./Login/Login";
+import Timeline from "./Timeline/Timeline";
 
 interface PrivateRouteProps {
   children: React.ReactNode;
@@ -19,16 +22,19 @@ function App() {
   return (
     <BrowserRouter>
       <ResponsiveProvider>
-        <Routes>
-          <Route path="/" element={<></>} />
-          {/* <Route 
-            path='/admin' element={
-              <PrivateRoute redirectTo="/login" cookieName={process.env.REACT_APP_COOKIE_NAME_USER_TOKEN}> 
-                <></>
-              </PrivateRoute>
-            } 
-          /> */}
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login></Login>} />
+            <Route 
+              path='/' element={
+                <PrivateRoute redirectTo="/login" cookieName={process.env.REACT_APP_COOKIE_NAME_USER_TOKEN}> 
+                  <Timeline></Timeline>
+                </PrivateRoute>
+              } 
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </AuthProvider>
       </ResponsiveProvider>
     </BrowserRouter>
   );
