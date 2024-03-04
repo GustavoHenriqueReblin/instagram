@@ -7,6 +7,7 @@ import Footer from '../../components/Footer/Footer';
 import React, { useState } from "react";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import Story from '../../components/Story/Story';
 
 function Timeline() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -28,6 +29,12 @@ function Timeline() {
                 <main className='timeline'>
                     <NavBar />
                     <Header />
+
+                    <div className='story-container'>
+                        <div className='space'>.</div>
+                        <Story myStory={true} />
+                        <Story />
+                    </div>
 
                     <Footer />
                 </main>

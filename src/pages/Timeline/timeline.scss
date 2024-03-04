@@ -13,4 +13,17 @@
     @media screen and (min-width: 1024px) {
         flex-direction: row;
     }
+
+    .story-container {
+        height: 106px;
+        display: flex;
+        margin: 8px 0;
+        align-items: center;
+        overflow-x: auto;
+        width: calc(100%);
+    
+        .space {
+            padding: 3px;
+        }
+    }
 }
