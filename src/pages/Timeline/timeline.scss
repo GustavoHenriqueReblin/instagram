@@ -14,16 +14,63 @@
         flex-direction: row;
     }
 
-    .story-container {
-        height: 106px;
+    .middle-content {
+        height: fit-content;
         display: flex;
-        margin: 8px 0;
-        align-items: center;
-        overflow-x: auto;
-        width: calc(100%);
+        flex-direction: column;
+        overflow-y: auto;
+
+        @media screen and (min-width: 1px) {
+            width: 100%;
+        }
     
-        .space {
-            padding: 3px;
+        @media screen and (min-width: 1024px) {
+            width: 80%;
+        }
+
+        .story-container {
+            height: 106px;
+            display: flex;
+            margin: 8px 0;
+            align-items: center;
+            overflow-x: auto;
+
+            @media screen and (min-width: 1px) {
+                width: calc(100%);
+            }
+        
+            @media screen and (min-width: 1024px) {
+                width: calc(70%);
+            }
+        
+            .space {
+                padding: 3px;
+            }
+        }
+
+        .main-content {
+            @media screen and (min-width: 1px) {
+                height: calc(100vh - 240px);
+                margin-top: 4px;
+                padding: 14px 0 0 0;
+                width: 100%;
+                border-top: 1px solid darken($color: $border-color, $amount: 70%);
+            }
+        
+            @media screen and (min-width: 1024px) {
+                height: calc(100vh - 122px);
+                padding: 14px 14px 0 14px;
+                width: 70%;
+            }
+
+            .teste {
+                margin-top: 4px;
+                height: 200px;
+                width: 100%;
+                background-color: antiquewhite;
+            }
+
+            
         }
     }
 }

@@ -3,24 +3,19 @@ import React from "react";
 
 interface StoryProps {
     myStory?: boolean;
+    username: string;
 };
 
-function Story({ myStory }: StoryProps) {
+function Story({ myStory, username }: StoryProps) {
     return (
         <>
             <div className='story-content'>
-                { myStory ? (
-                    <>
-                        <div className='story'></div>
-                        <div className='plus'>+</div>
-                    </>
-                ) : (
-                    <div className='story-border'>
-                        <div className='story'></div>
-                    </div>
-                )}
+                <div className={`story-border ${ myStory && 'my-story'}`}>
+                    <div className={`story ${ myStory && 'my-story'}`}></div>
+                    { myStory  && ( <div className='plus'>+</div> )}
+                </div>
                 
-                <span className='username'>Seu story</span>
+                <span className={`username ${ myStory && 'mt-2'}`}>{ username }</span>
             </div>
         </>
     )

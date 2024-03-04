@@ -30,10 +30,22 @@ function Timeline() {
                     <NavBar />
                     <Header />
 
-                    <div className='story-container'>
-                        <div className='space'>.</div>
-                        <Story myStory={true} />
-                        <Story />
+                    <div className='middle-content'>
+                        <div className='story-container'>
+                            <div className='space'>.</div>
+                            <Story myStory={true} username={'Seu story'} />
+                            <Story username={'joazinhooooooo'}/>
+                            <div className='space'>.</div>
+                        </div>
+
+                        <div className='main-content'>
+                            {/*<div className='teste'></div>
+                            <div className='teste'></div>
+                            <div className='teste'></div>
+                            <div className='teste'></div>*/}
+
+
+                        </div>
                     </div>
 
                     <Footer />

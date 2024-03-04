@@ -2,43 +2,53 @@
 
 .story-content {
     flex-shrink: 0;
-    width: 86px;
-    height: 106px;
-    padding: 4px 6px;
+    height: fit-content;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 5px;
+    margin: 0 8px;
     position: relative;
 
     .story-border {
-        height: 100%;
-        width: 100%;
+        height: 78px;
+        width: 78px;
+        padding: 2px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         background-image: linear-gradient(to right, rgb(255, 220, 24) , rgb(255, 0, 170));
+
+        &.my-story {
+            background-image: none;
+            padding: 4px;
+        }
     }
 
     .story {
-        height: 70px;
-        width: 70px;
+        height: 100%;
+        width: 100%;
         background-color: $text-color;
         border-radius: 50%;
         border: 4px solid $bg-color;
+        flex-grow: 1;
+
+        &.my-story {
+            border: 1px solid darken($color: $border-color, $amount: 25%);
+        }
     }
 
     .plus {
-        height: 21px;
-        width: 21px;
+        height: 24px;
+        width: 24px;
         position: absolute;
         border-radius: 50%;
         background-color: $blue-plus-story;
         border: 2px solid $bg-color;
-        bottom: 32px;
-        right: 12px;
+        bottom: 30px;
+        right: 8px;
         z-index: 50;
         text-align: center;
         color: $text-color;
@@ -48,7 +58,16 @@
 
     .username {
         color: $text-color;
+        width: 72px;
         font-size: 14px;
-        margin-top: 10px;
+        margin-top: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+
+        &.mt-2 {
+            margin-top: 12px;
+        }
     }
 }

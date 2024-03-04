@@ -9,7 +9,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        padding: 18px 18px;
+        padding: 18px 4px;
         background-color: $bg-color;
         color: $text-color;
         position: fixed;
@@ -20,13 +20,12 @@
             height: 28px;
             width: 28px;
             font-size: 28px;
-            margin: 0 24px;
+            margin: 0 28px;
         }
 
         .profile {
-            margin: 0 24px;
-            height: 26px;
-            width: 26px;
+            height: 24px;
+            width: 24px;
             border-radius: 50%;
             background-color: $border-color;
         }

@@ -58,7 +58,7 @@ input {
 }
   
 ::-webkit-scrollbar-track {
-    background-color: $text-color; 
+    background-color: lighten($color: $bg-color, $amount: 10%); 
 }
 
 .loader-container{

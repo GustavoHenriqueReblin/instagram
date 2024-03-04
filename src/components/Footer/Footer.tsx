@@ -14,7 +14,7 @@ function Footer() {
             <div className='icon'><IoSearch /></div>
             <div className='icon'><FaRegSquarePlus /></div>
             <div className='icon'><PiFilmSlateBold /></div>
-            <div className='profile'></div>
+            <div className='icon'><div className='profile'></div></div>
         </div>
     )
 }
