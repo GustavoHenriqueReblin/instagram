@@ -10,6 +10,20 @@
     justify-content: center;
     margin: 0 8px;
     position: relative;
+    
+    &.fromPubli {
+        margin-top: 4px;
+
+        @media screen and (min-width: 1px) {
+            scale: calc(0.44);
+            width: 38px;
+        }
+
+        @media screen and (min-width: 1024px) {
+            scale: calc(0.6);
+            width: 44px;
+        }
+    }
 
     .story-border {
         height: 78px;
@@ -20,6 +34,7 @@
         align-items: center;
         justify-content: center;
         background-image: linear-gradient(to right, rgb(255, 220, 24) , rgb(255, 0, 170));
+        cursor: pointer;
 
         &.my-story {
             background-image: none;
@@ -68,6 +83,10 @@
 
         &.mt-2 {
             margin-top: 12px;
+        }
+
+        &.fromPubli {
+            display: none;
         }
     }
 }

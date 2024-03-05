@@ -49,16 +49,34 @@ input {
 }
 
 ::-webkit-scrollbar {
-    width: 5px; 
-    height: 0px;
+    @media screen and (min-width: 1px) {
+        display: none;
+    }
+    
+    @media screen and (min-width: 1024px) {
+        width: 5px; 
+        height: 0px;
+    }
 }
   
 ::-webkit-scrollbar-thumb {
-    background-color: $bg-color;
+    @media screen and (min-width: 1px) {
+        display: none;
+    }
+    
+    @media screen and (min-width: 1024px) {
+        background-color: $bg-color;
+    }
 }
   
 ::-webkit-scrollbar-track {
-    background-color: lighten($color: $bg-color, $amount: 10%); 
+    @media screen and (min-width: 1px) {
+        display: none;
+    }
+    
+    @media screen and (min-width: 1024px) {
+        background-color: lighten($color: $bg-color, $amount: 10%); 
+    }
 }
 
 .loader-container{

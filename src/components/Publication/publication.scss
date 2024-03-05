@@ -1,0 +1,183 @@
+@import '../../variables.scss';
+
+.publi-container { 
+    margin-bottom: 4px;
+
+    @media screen and (min-width: 1px) {
+        width: 100%;
+    }
+    
+    @media screen and (min-width: 1024px) {
+        width: 470px;
+    }
+
+    .publi-header {
+        height: 48px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        @media screen and (min-width: 1px) {
+            margin-bottom: 4px;
+            padding: 0 8px;
+        }
+        
+        @media screen and (min-width: 1024px) {
+            margin-bottom: 10px;
+            padding: 0;
+        }
+        
+        .user-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            color: $text-color;
+
+            .username {
+                font-weight: 500;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .location {
+                margin-top: 4px;
+                font-size: 11px;
+            }
+        }
+
+        .options {
+            height: 100%;
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            color: $text-color;
+
+            @media screen and (min-width: 1024px) {
+                transform: rotate(90deg);
+            }
+
+            &:hover {
+                cursor: pointer;
+                color: darken($color: $border-color, $amount: 25%);
+            }
+        }
+    }
+
+    .content {
+        height: 585px;
+        width: 100%;
+        max-width: 470px;
+        background-color: rgb(83, 83, 83);
+    }
+
+    .icons {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        color: $text-color;
+
+        @media screen and (min-width: 1px) {
+            padding: 12px 10px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            padding: 12px 0;
+        }
+
+        .publi-icon {
+            font-size: 24px;
+
+            @media screen and (min-width: 1px) {
+                margin: 0 10px;
+            }
+        
+            @media screen and (min-width: 1024px) {
+                margin-left: 0;
+                margin-right: 20px;
+
+                &.last {
+                    margin-right: 0;
+                }
+            }
+
+            &.grow-1 {
+                flex-grow: 1;
+            }
+
+            &:hover {
+                cursor: pointer;
+                color: darken($color: $border-color, $amount: 25%);
+            }
+        }
+    }
+
+    .comments-container {
+        height: fit-content;
+        width: 100%;
+        color: $text-color;
+        position: relative;
+        margin-bottom: 10px;
+
+        @media screen and (min-width: 1px) {
+            padding: 0 20px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            padding: 0;
+        }
+
+        .likes {
+            width: 100%;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .description {
+            width: 88%;
+            // display: flex;
+            align-items: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 22px;
+
+            &.expanded {
+                width: 100%;
+                white-space: wrap;
+                overflow: auto;
+                text-overflow: none;
+            }
+
+            .user {
+                margin-right: 4px;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .show-more {
+                width: 10px;
+                height: 10px;
+                position: absolute;
+                z-index: 20000;
+                right: 24px;
+                top: 21px;
+                text-align: justify;
+                direction: rtl;
+                color: darken($color: $border-color, $amount: 25%);
+                cursor: pointer;
+            }
+        }
+
+        .all-comments {
+            padding: 6px 0;
+            color: darken($color: $border-color, $amount: 25%);
+            cursor: pointer;
+        }
+
+        .publi-time {
+            padding: 2px 0;
+            font-size: 12px;
+            color: darken($color: $border-color, $amount: 25%);
+        }
+    }
+}

@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import Story from '../../components/Story/Story';
+import Publication from '../../components/Publication/Publication';
 
 function Timeline() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -28,23 +29,30 @@ function Timeline() {
             { loading ? (<LoadingMeta></LoadingMeta>) : (
                 <main className='timeline'>
                     <NavBar />
-                    <Header />
 
                     <div className='middle-content'>
+                        <Header />
                         <div className='story-container'>
                             <div className='space'>.</div>
                             <Story myStory={true} username={'Seu story'} />
                             <Story username={'joazinhooooooo'}/>
+                            <Story username={'onça'}/>
+                            <Story username={'jaguara'}/>
+                            <Story username={'pedrinho'}/>
                             <div className='space'>.</div>
                         </div>
 
                         <div className='main-content'>
-                            {/*<div className='teste'></div>
-                            <div className='teste'></div>
-                            <div className='teste'></div>
-                            <div className='teste'></div>*/}
-
-
+                            <Publication 
+                                username={'osforasteirosdefaraway'} 
+                                hasAds={ true } 
+                            />
+                            <Publication 
+                                username={'lekobertoldo'} 
+                                hasLocation={ true } 
+                                locationName={ 'Witmarsum' }
+                            />
+                            <Publication username={'ogustavohique'} />
                         </div>
                     </div>
 

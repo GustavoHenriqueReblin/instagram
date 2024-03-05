@@ -2,20 +2,21 @@ import './story.scss';
 import React from "react";
 
 interface StoryProps {
-    myStory?: boolean;
-    username: string;
+    myStory?: boolean | undefined;
+    username?: string | undefined;
+    fromPubli?: boolean | undefined;
 };
 
-function Story({ myStory, username }: StoryProps) {
+function Story({ myStory, username, fromPubli }: StoryProps) {
     return (
         <>
-            <div className='story-content'>
-                <div className={`story-border ${ myStory && 'my-story'}`}>
-                    <div className={`story ${ myStory && 'my-story'}`}></div>
+            <div className={`story-content ${ fromPubli ? 'fromPubli' : ''}`}>
+                <div className={`story-border ${ myStory ? 'my-story' : ''}`}>
+                    <div className={`story ${ myStory ? 'my-story' : ''}`}></div>
                     { myStory  && ( <div className='plus'>+</div> )}
                 </div>
                 
-                <span className={`username ${ myStory && 'mt-2'}`}>{ username }</span>
+                <span className={`username ${ myStory ? 'mt-2' : ''}`}>{ username }</span>
             </div>
         </>
     )
