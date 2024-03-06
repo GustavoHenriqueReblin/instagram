@@ -26,8 +26,6 @@
     }
 
     .story-border {
-        height: 78px;
-        width: 78px;
         padding: 2px;
         border-radius: 50%;
         display: flex;
@@ -35,6 +33,16 @@
         justify-content: center;
         background-image: linear-gradient(to right, rgb(255, 220, 24) , rgb(255, 0, 170));
         cursor: pointer;
+
+        @media screen and (min-width: 1px) {
+            height: 78px;
+            width: 78px;
+        }
+
+        @media screen and (min-width: 1024px) {
+            height: 72px;
+            width: 72px;
+        }
 
         &.my-story {
             background-image: none;
@@ -72,18 +80,15 @@
     }
 
     .username {
+        height: 16px;
         color: $text-color;
         width: 72px;
         font-size: 14px;
-        margin-top: 12px;
+        margin-top: 10px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: center;
-
-        &.mt-2 {
-            margin-top: 12px;
-        }
 
         &.fromPubli {
             display: none;

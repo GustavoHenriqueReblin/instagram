@@ -16,7 +16,7 @@ function Story({ myStory, username, fromPubli }: StoryProps) {
                     { myStory  && ( <div className='plus'>+</div> )}
                 </div>
                 
-                <span className={`username ${ myStory ? 'mt-2' : ''}`}>{ username }</span>
+                <span className='username'>{ username }</span>
             </div>
         </>
     )
