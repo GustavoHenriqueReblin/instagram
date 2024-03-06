@@ -41,6 +41,16 @@
                 align-items: center;
                 justify-content: flex-start;
 
+                &.hide-on-small-screen {
+                    @media screen and (min-width: 1px) {
+                        display: none;
+                    }
+                    
+                    @media screen and (min-width: 1366px) {
+                        display: block;
+                    }
+                }
+
                 .profile {
                     height: 24px;
                     width: 24px;

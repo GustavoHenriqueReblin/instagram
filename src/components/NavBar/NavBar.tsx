@@ -39,7 +39,7 @@ function NavBar() {
                     <span className='icon'><FaRegHeart /></span>
                     <span className='item-text'>Notificações</span>
                 </li>
-                <li className='item'>
+                <li className='item hide-on-small-screen'>
                     <span className='icon'><FaRegSquarePlus /></span>
                     <span className='item-text'>Criar</span>
                 </li>
@@ -47,7 +47,7 @@ function NavBar() {
                     <div className='profile'></div>
                     <span className='item-text'>Perfil</span>
                 </li>
-                <li className='item fixed'>
+                <li className='item fixed hide-on-small-screen'>
                     <span className='icon'><IoMenu /></span>
                     <span className='item-text'>Mais</span>
                 </li>
