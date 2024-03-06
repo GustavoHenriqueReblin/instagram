@@ -58,19 +58,23 @@ function Timeline() {
                         </div>
 
                         <div className='main-content'>
-                            { publicationData.publications.data && publicationData.publications.data.map((publication: PublicationType) => (
-                                <Publication 
-                                    key={ publication.id }
-                                    username={ publication.username }
-                                    hasAds={ false } // Mudar depois
-                                    hasLocation={ false } // Mudar depois
-                                    locationName={''} // Mudar depois
-                                    likes={ publication.likes.length }
-                                    comments={ publication.comments }
-                                    description={ publication.description }
-                                    date={ publication.dateTime }
-                                />
-                            ))}
+                            { publicationData.publications.data && publicationData.publications.data.length > 0
+                                ? 
+                                publicationData.publications.data.map((publication: PublicationType) => (
+                                    <Publication 
+                                        key={ publication.id }
+                                        username={ publication.username }
+                                        hasAds={ false } // Mudar depois
+                                        hasLocation={ false } // Mudar depois
+                                        locationName={''} // Mudar depois
+                                        likes={ publication.likes.length }
+                                        comments={ publication.comments }
+                                        description={ publication.description }
+                                        date={ publication.dateTime }
+                                    />
+                                ))
+                                : (<span className='no-more-content'>Nada de novo por aqui... 🥺</span>) 
+                            }
                         </div>
                     </div>
 
