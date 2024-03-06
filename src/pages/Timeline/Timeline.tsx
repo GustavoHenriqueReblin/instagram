@@ -46,13 +46,27 @@ function Timeline() {
                             <Publication 
                                 username={'osforasteirosdefaraway'} 
                                 hasAds={ true } 
+                                comments={[{ id: 1, description: 'Olá' }]}
+                                description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad mollitia voluptatem quibusdam sunt deserunt cupiditate maiores tenetur modi, dolore ducimus repellat nihil aliquam voluptas, placeat consequatur unde. Sapiente aliquid, molestias blanditiis libero soluta laboriosam assumenda! Suscipit in fugiat quis quasi, quos sequi hic libero dolores iusto cupiditate saepe voluptatem assumenda tenetur dignissimos! Illum vitae soluta velit, corporis laboriosam dolorem totam officia nisi eligendi commodi?'}
+                                date={'24 de fevereiro'}
                             />
                             <Publication 
                                 username={'lekobertoldo'} 
                                 hasLocation={ true } 
                                 locationName={ 'Witmarsum' }
+                                likes={1}
+                                comments={[{ id: 1, description: 'Olá' }, { id: 2, description: 'Olá2' }]}
+                                description={''}
+                                date={'31 de janeiro'}
                             />
-                            <Publication username={'ogustavohique'} />
+                            <Publication 
+                                username={'lekobertoldo'} 
+                                likes={5621}
+                                comments={[{}]}
+                                description={'Lorem ipsum dolor sit amet consectetur'}
+                                date={'01 de dezembro'}
+                            />
+                            <Publication username={'ogustavohique'} date={'04 de novembro'} />
                         </div>
                     </div>
 

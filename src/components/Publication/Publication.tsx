@@ -1,7 +1,7 @@
 import './publication.scss';
 import Story from '../Story/Story';
 
-import React from "react";
+import React, { useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineModeComment } from "react-icons/md";
@@ -13,9 +13,30 @@ interface PublicationProps {
     hasLocation?: boolean | undefined;
     username?: string | undefined;
     locationName?: string | undefined;
+    likes?: number | undefined;
+    comments?: any | undefined;
+    description?: string | undefined;
+    date?: string | undefined;
 };
 
-function Publication({ hasAds, hasLocation, username, locationName }: PublicationProps) {
+function Publication({ 
+    hasAds, hasLocation, username, locationName, likes, comments, description, date
+}: PublicationProps) {
+    const [isDescriptinExpanded, setIsDescriptinExpanded] = useState(false);
+
+    const getLikesString = () => {
+        if (likes) {
+            const newLikeValue = likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            if (likes > 1) {
+                return newLikeValue + ' curtidas';
+            } else {
+                return newLikeValue + ' curtida';
+            }
+        } else {
+            return 'Nenhuma curtida';
+        }
+    };
+
     return (
         <div className='publi-container'>
             <div className='publi-header'>
@@ -33,26 +54,33 @@ function Publication({ hasAds, hasLocation, username, locationName }: Publicatio
             <div className='icons'>
                 <span className='publi-icon'><FaRegHeart /></span>
                 <span className='publi-icon'><MdOutlineModeComment /></span>
-                <span className='publi-icon grow-1'><LuSend /></span>
+                <div className='grow-1'>
+                    <span className='publi-icon'><LuSend /></span>
+                </div>
                 <span className='publi-icon last'><HiOutlineSave /></span>
             </div>
 
             <div className='comments-container'>
                 <div className='likes'>
-                    1.657 curtidas
+                    { getLikesString() } 
                 </div>
-                <div className='description'><span className='user'>torettodragrace</span>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad mollitia voluptatem quibusdam sunt deserunt cupiditate maiores tenetur modi, dolore ducimus repellat nihil aliquam voluptas, placeat consequatur unde. Sapiente aliquid, molestias blanditiis libero soluta laboriosam assumenda! Suscipit in fugiat quis quasi, quos sequi hic libero dolores iusto cupiditate saepe voluptatem assumenda tenetur dignissimos! Illum vitae soluta velit, corporis laboriosam dolorem totam officia nisi eligendi commodi?
-                    <span className='show-more'>mais</span>
+                <div className={`description ${isDescriptinExpanded ? 'expanded': ''}`}>
+                    <span className='user'>{ username }</span>
+                        { description }
+                    { !isDescriptinExpanded && description && description?.length > 30 &&
+                        (<span className='show-more' onClick={() => setIsDescriptinExpanded(true)}>mais</span>)
+                    }
                 </div>
-                <div className='all-comments'>
-                    Ver todos os 263 comentários
-                </div>
+                { comments && comments.length > 0 && (
+                    <div className='all-comments'>
+                        Ver { comments.length > 1 ? ' todos os ' + comments.length + ' comentários' : 'comentário' } 
+                    </div>
+                )}
                 {/* <div className='preview-comment'>
 
                 </div> */}
                 <div className='publi-time'>
-                    24 de fevereiro
+                    { date }
                 </div>
             </div>
         </div>
