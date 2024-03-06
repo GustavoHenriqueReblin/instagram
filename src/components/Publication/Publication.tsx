@@ -7,6 +7,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineModeComment } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
 import { HiOutlineSave } from "react-icons/hi";
+import { Comment } from '../../types/types';
 
 interface PublicationProps {
     hasAds?: boolean | undefined;
@@ -14,9 +15,9 @@ interface PublicationProps {
     username?: string | undefined;
     locationName?: string | undefined;
     likes?: number | undefined;
-    comments?: any | undefined;
+    comments?: Comment[] | undefined;
     description?: string | undefined;
-    date?: string | undefined;
+    date?: Date | undefined;
 };
 
 function Publication({ 
@@ -80,7 +81,7 @@ function Publication({
 
                 </div> */}
                 <div className='publi-time'>
-                    { date }
+                    {  }
                 </div>
             </div>
         </div>

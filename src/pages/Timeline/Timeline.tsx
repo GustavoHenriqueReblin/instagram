@@ -3,26 +3,41 @@ import LoadingMeta from '../../components/LoadingMeta/LoadingMeta';
 import NavBar from '../../components/NavBar/NavBar';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import Publication from '../../components/Publication/Publication';
+import Story from '../../components/Story/Story';
+import { Publication as PublicationType } from '../../types/types';
+import { useAuthContext } from '../../contexts/userContext';
+import { FindMany } from '../../graphql/queries/publication';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import Story from '../../components/Story/Story';
-import Publication from '../../components/Publication/Publication';
+import { useLazyQuery } from '@apollo/client';
 
 function Timeline() {
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
+    const { user } = useAuthContext();
+    
+    const [getPublications, { data: publicationData }] = useLazyQuery(FindMany, {
+        onCompleted: (res) => {
+            setLoading(false);
+        },
+        onError: (err) => {
+            console.error(err);
+            setLoading(false);
+        } 
+    });
+
+    useEffect(() => {
+        user && getPublications({ variables: { input: { userId: user.id } } });
+    }, [user, getPublications]);
 
     const cookieName = process.env.REACT_APP_COOKIE_NAME_USER_TOKEN;
     if (cookieName) {
         const userToken = Cookies.get(cookieName);
         !userToken && navigate('/login');
     };
-
-    loading && setTimeout(() => {
-        setLoading(false);
-    }, Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000);
 
     return (
         <>
@@ -43,30 +58,19 @@ function Timeline() {
                         </div>
 
                         <div className='main-content'>
-                            <Publication 
-                                username={'osforasteirosdefaraway'} 
-                                hasAds={ true } 
-                                comments={[{ id: 1, description: 'Olá' }]}
-                                description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad mollitia voluptatem quibusdam sunt deserunt cupiditate maiores tenetur modi, dolore ducimus repellat nihil aliquam voluptas, placeat consequatur unde. Sapiente aliquid, molestias blanditiis libero soluta laboriosam assumenda! Suscipit in fugiat quis quasi, quos sequi hic libero dolores iusto cupiditate saepe voluptatem assumenda tenetur dignissimos! Illum vitae soluta velit, corporis laboriosam dolorem totam officia nisi eligendi commodi?'}
-                                date={'24 de fevereiro'}
-                            />
-                            <Publication 
-                                username={'lekobertoldo'} 
-                                hasLocation={ true } 
-                                locationName={ 'Witmarsum' }
-                                likes={1}
-                                comments={[{ id: 1, description: 'Olá' }, { id: 2, description: 'Olá2' }]}
-                                description={''}
-                                date={'31 de janeiro'}
-                            />
-                            <Publication 
-                                username={'lekobertoldo'} 
-                                likes={5621}
-                                comments={[{}]}
-                                description={'Lorem ipsum dolor sit amet consectetur'}
-                                date={'01 de dezembro'}
-                            />
-                            <Publication username={'ogustavohique'} date={'04 de novembro'} />
+                            { publicationData.publications.data && publicationData.publications.data.map((publication: PublicationType) => (
+                                <Publication 
+                                    key={ publication.id }
+                                    username={ publication.username }
+                                    hasAds={ false } // Mudar depois
+                                    hasLocation={ false } // Mudar depois
+                                    locationName={''} // Mudar depois
+                                    likes={ publication.likes.length }
+                                    comments={ publication.comments }
+                                    description={ publication.description }
+                                    date={ publication.dateTime }
+                                />
+                            ))}
                         </div>
                     </div>
 
