@@ -43,7 +43,7 @@ function Login() {
                 const cookieName = process.env.REACT_APP_COOKIE_NAME_USER_TOKEN;
                 if (cookieName) {
                     Cookies.set(cookieName, token, { expires: 1 });
-                    navigate('/');
+                    navigate('/', { replace: true });
                 }
             }
             data.error && setQueryErrors(data.error);

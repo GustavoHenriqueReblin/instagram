@@ -68,10 +68,17 @@
     }
 
     .content {
-        height: 585px;
+        height: fit-content;
+        max-height: 585px;
         width: 100%;
         max-width: 470px;
-        background-color: rgb(83, 83, 83);
+        border: 0.4px solid darken($color: $border-color, $amount: 60%);
+
+        .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
     .icons {
@@ -79,6 +86,7 @@
         display: flex;
         align-items: center;
         color: $text-color;
+        position: relative;
 
         @media screen and (min-width: 1px) {
             padding: 12px 10px;
@@ -111,6 +119,10 @@
                 cursor: pointer;
                 color: darken($color: $border-color, $amount: 25%);
             }
+        }
+        
+        .like {
+            fill: $notification-color;
         }
     }
 

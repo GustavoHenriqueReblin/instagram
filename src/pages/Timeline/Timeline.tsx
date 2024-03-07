@@ -21,7 +21,9 @@ function Timeline() {
     
     const [getPublications, { data: publicationData }] = useLazyQuery(FindMany, {
         onCompleted: (res) => {
-            setLoading(false);
+            loading && setTimeout(() => {
+                setLoading(false);
+            }, Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000);
         },
         onError: (err) => {
             console.error(err);
@@ -36,7 +38,7 @@ function Timeline() {
     const cookieName = process.env.REACT_APP_COOKIE_NAME_USER_TOKEN;
     if (cookieName) {
         const userToken = Cookies.get(cookieName);
-        !userToken && navigate('/login');
+        !userToken && navigate('/login', { replace: true });
     };
 
     return (
@@ -63,14 +65,8 @@ function Timeline() {
                                 publicationData.publications.data.map((publication: PublicationType) => (
                                     <Publication 
                                         key={ publication.id }
-                                        username={ publication.username }
-                                        hasAds={ false } // Mudar depois
-                                        hasLocation={ false } // Mudar depois
-                                        locationName={''} // Mudar depois
-                                        likes={ publication.likes.length }
-                                        comments={ publication.comments }
-                                        description={ publication.description }
-                                        date={ publication.dateTime }
+                                        data={ publication }
+                                        userIdLogged={ user?.id }
                                     />
                                 ))
                                 : (<span className='no-more-content'>Nada de novo por aqui... 🥺</span>) 

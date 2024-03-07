@@ -13,6 +13,7 @@ export const FindMany = gql`
                 fileUrl
                 username
                 category
+                type
                 comments {
                     description
                     userId
@@ -27,6 +28,7 @@ export const FindMany = gql`
                     }
                 }
                 likes {
+                    id
                     userId
                     username
                     name

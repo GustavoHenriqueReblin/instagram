@@ -15,7 +15,7 @@ interface PrivateRouteProps {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, redirectTo, cookieName }) => {
   const isAuthenticated = !!(Cookies.get(cookieName ? cookieName : ''));
-  return isAuthenticated ? <>{children}</> : <Navigate to={redirectTo} />;
+  return isAuthenticated ? <>{children}</> : <Navigate to={redirectTo} replace />;
 };
  
 function App() {
@@ -32,7 +32,7 @@ function App() {
                 </PrivateRoute>
               } 
             />
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AuthProvider>
       </ResponsiveProvider>

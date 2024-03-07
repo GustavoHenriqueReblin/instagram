@@ -14,7 +14,8 @@ export type Publication = {
     description: string,
     fileUrl: string,
     username: string, 
-    category: string
+    category: string,
+    type: TypeOfPublication,
     likes: Like[],
     comments: Comment[],
 };
@@ -40,6 +41,12 @@ export type Like = {
     id: number,
     userId: number,
     publicationId: number
+};
+
+export enum TypeOfPublication {
+    IMAGE = "IMAGE",
+    REELS = "REELS",
+    ADVERTISEMENT = "ADVERTISEMENT"
 };
 
 type Page = {
