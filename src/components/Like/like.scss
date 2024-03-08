@@ -1,0 +1,42 @@
+@import '../../variables.scss';
+
+.like-row {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+
+    .like-image {
+        height: 56px;
+        width: 56px;
+        border-radius: 50%;
+        background-color: aliceblue;
+    }
+
+    .names {
+        display: flex;
+        flex-direction: column;
+        padding: 0 24px;
+        color: $text-color;
+        gap: 6px;
+        flex-grow: 1;
+
+        .name {
+            color: lighten($color: $main-gray, $amount: 50%);
+        }
+    }
+    
+    .follow-like-button {
+        padding: 6px 22px;
+        border-radius: 6px;
+        background-color: $blue-plus-story;
+        color: $text-color;
+        border: none;
+        cursor: pointer;
+        
+        &:hover {
+            background-color: $blue-register-button;
+        }
+    }
+}

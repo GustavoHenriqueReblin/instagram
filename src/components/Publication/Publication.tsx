@@ -11,6 +11,7 @@ import { LuSend } from "react-icons/lu";
 import { HiOutlineSave } from "react-icons/hi";
 import { useMutation } from '@apollo/client';
 import { DESLIKE, LIKE } from '../../graphql/mutations/publication';
+import Likes from '../../pages/Likes/Likes';
 
 interface PublicationProps {
     data: PublicationType;
@@ -18,10 +19,11 @@ interface PublicationProps {
 };
 
 function Publication({ data, userIdLogged }: PublicationProps) {
-    const [ isDescriptinExpanded, setIsDescriptinExpanded ] = useState(false);
+    const [ isDescriptinExpanded, setIsDescriptinExpanded ] = useState<Boolean>(false);
     const [ myLike, setMyLike ] = useState<Like | undefined>(data.likes.find(like => like.userId === userIdLogged));
     const [ hasAds ] = useState(data.type === TypeOfPublication.ADVERTISEMENT);
     const [ likeCounter, setLikeCounter ] = useState<number | undefined>(data?.likes?.length);
+    const [ isLikesModalOpen, setIsLikesModalOpen ] = useState<Boolean>(false);
 
     const [ addLike ] = useMutation(LIKE);
     const [ removeLike ] = useMutation(DESLIKE);
@@ -81,8 +83,8 @@ function Publication({ data, userIdLogged }: PublicationProps) {
         }
     };
 
-    const memoizedPublicationContent = useMemo(() => {
-        return (
+    return (
+        <>
             <div className='publi-container'>
                 <div className='publi-header'>
                     <Story fromPubli={ true } />
@@ -112,7 +114,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
                 </div>
 
                 <div className='comments-container'>
-                    <div className='likes'>
+                    <div className='likes' onClick={() => {setIsLikesModalOpen(true)}}>
                         { getLikesString() } 
                     </div>
                     <div className={`description ${isDescriptinExpanded ? 'expanded': ''}`}>
@@ -133,10 +135,10 @@ function Publication({ data, userIdLogged }: PublicationProps) {
                     </div>
                 </div>
             </div>
-        );
-    }, [data, userIdLogged, myLike, hasAds, isDescriptinExpanded, likeCounter]);
 
-    return memoizedPublicationContent;
+            { isLikesModalOpen && <Likes closePage={() => setIsLikesModalOpen(false)} />}
+        </>
+    );
 }
 
 export default Publication;
