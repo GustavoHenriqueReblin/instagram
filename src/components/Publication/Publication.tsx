@@ -1,9 +1,10 @@
 import './publication.scss';
 import Story from '../Story/Story';
 import Likes from '../../pages/Likes/Likes';
-import { Like, Publication as PublicationType, TypeOfPublication } from '../../types/types';
+import { Like, Publication as PublicationType, TypeOfPublication, User } from '../../types/types';
 import { formatLongData, FormatNumberToString } from '../../Helper';
 import { DESLIKE, LIKE } from '../../graphql/mutations/publication';
+import BottomModal from '../BottomModal/BottomModal';
 
 import React, { useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -12,18 +13,17 @@ import { MdOutlineModeComment } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
 import { HiOutlineSave } from "react-icons/hi";
 import { useMutation } from '@apollo/client';
-import BottomModal from '../BottomModal/BottomModal';
 
 interface PublicationProps {
     data: PublicationType;
-    userIdLogged: number | undefined;
+    userLogged: User | null;
 };
 
-function Publication({ data, userIdLogged }: PublicationProps) {
+function Publication({ data, userLogged }: PublicationProps) {
     const [ isDescriptinExpanded, setIsDescriptinExpanded ] = useState<Boolean>(false);
-    const [ myLike, setMyLike ] = useState<Like | undefined>(data.likes.find(like => like.userId === userIdLogged));
+    const [ myLike, setMyLike ] = useState<Like | undefined>(data.likes.find(like => like.userId === userLogged?.id));
     const [ hasAds ] = useState(data.type === TypeOfPublication.ADVERTISEMENT);
-    const [ likeCounter, setLikeCounter ] = useState<number>(data?.likes?.length | 0);
+    const [ postLikes, setPostLikes ] = useState<Like[]>(data.likes);
     const [ isLikesModalOpen, setIsLikesModalOpen ] = useState<Boolean>(false);
     const [ isCommentModalOpen, setIsCommentModalOpen ] = useState<Boolean>(false);
 
@@ -36,37 +36,39 @@ function Publication({ data, userIdLogged }: PublicationProps) {
 
     const changeLike = async () => {
         if (!!myLike) {
+            const likeId = myLike?.id;
+            const newPostLikes = postLikes.filter(like => like.id !== myLike?.id);
+            setPostLikes(newPostLikes);
             setMyLike(undefined);
-            setLikeCounter(likeCounter - 1);
+            
             await removeLike({
                 variables: {
                     input: {
-                        id: myLike?.id,
+                        id: likeId,
                     },
                 },
             })
             .catch((error) => {
                 console.error('Erro ao remover o like: ', error);
+                setPostLikes([...postLikes, myLike]);
                 setMyLike(myLike);
-                setLikeCounter(likeCounter + 1);
             });
         } else {
-            setLikeCounter(likeCounter + 1);
             addLike({
                 variables: {
                     input: {
                         id: "-1",
                         publicationId: data.id,
-                        userId: userIdLogged
+                        userId: userLogged?.id
                     },
                 },
             })
             .then((res) => {
+                setPostLikes([...postLikes, res.data.addPublicationLike]);
                 setMyLike(res.data.addPublicationLike as Like);
             })
             .catch((error) => {
                 console.error('Erro ao registrar o like: ', error);
-                setLikeCounter(likeCounter - 1);
                 setMyLike(undefined);
             });
         }
@@ -104,7 +106,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
 
                 <div className='comments-container'>
                     <div className='likes' onClick={() => {setIsLikesModalOpen(true)}}>
-                        { FormatNumberToString(likeCounter, 'curtida', 'curtidas', 'Nenhuma curtida') } 
+                        { FormatNumberToString(postLikes.length, 'curtida', 'curtidas', 'Nenhuma curtida') } 
                     </div>
                     <div className={`description ${isDescriptinExpanded ? 'expanded': ''}`}>
                         <span className='user'>{ data.username }</span>
@@ -128,7 +130,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
                 </div>
             </div>
 
-            { isLikesModalOpen && <Likes views={data?.views} data={data?.likes} closePage={() => setIsLikesModalOpen(false)} /> }
+            { isLikesModalOpen && <Likes views={data?.views} data={postLikes} closePage={() => setIsLikesModalOpen(false)} /> }
             { isCommentModalOpen && <BottomModal closeModal={() => setIsCommentModalOpen(false)} /> }
         </>
     );

@@ -66,7 +66,7 @@ function Timeline() {
                                     <Publication 
                                         key={ publication.id }
                                         data={ publication }
-                                        userIdLogged={ user?.id }
+                                        userLogged={ user }
                                     />
                                 ))
                                 : (<span className='no-more-content'>Nada de novo por aqui... 🥺</span>) 
