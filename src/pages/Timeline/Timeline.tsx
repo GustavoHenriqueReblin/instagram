@@ -23,7 +23,7 @@ function Timeline() {
         onCompleted: (res) => {
             loading && setTimeout(() => {
                 setLoading(false);
-            }, Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000);
+            }, Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000);
         },
         onError: (err) => {
             console.error(err);

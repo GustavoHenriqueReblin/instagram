@@ -120,9 +120,12 @@ function Publication({ data, userIdLogged }: PublicationProps) {
                     <div className={`description ${isDescriptinExpanded ? 'expanded': ''}`}>
                         <span className='user'>{ data.username }</span>
                             { data.description }
-                        { !isDescriptinExpanded && data.description && data.description?.length > 30 &&
-                            (<span className='show-more' onClick={() => setIsDescriptinExpanded(true)}>mais</span>)
-                        }
+                        { !isDescriptinExpanded && data.description && data.description?.length > 30 && (
+                            <span className='show-more' 
+                                onClick={() => data.likes.length > 0 && setIsDescriptinExpanded(true)}>
+                                mais
+                            </span>
+                        )}
                     </div>
                     { data.comments && data.comments.length > 0 && (
                         <div className='all-comments'>

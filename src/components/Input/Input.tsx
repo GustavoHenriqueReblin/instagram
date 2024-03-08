@@ -7,7 +7,7 @@ function Input() {
     return (
         <div className='input-container'>
             <span className='search-icon'><IoSearch /></span>
-            <input type="text" autoFocus placeholder='Pesquisar' className='input'></input>
+            <input type="text" placeholder='Pesquisar' className='input'></input>
         </div>
     )
 }
