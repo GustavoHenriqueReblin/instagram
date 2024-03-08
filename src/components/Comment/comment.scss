@@ -1,0 +1,75 @@
+@import '../../variables.scss';
+
+.comment {
+    height: fit-content;
+    width: 100%;
+    padding: 14px 20px;
+    display: flex;
+    align-items: flex-start;
+    color: $text-color;
+
+    .comment-photo {
+        height: fit-content;
+        width: 56px;
+        display: flex;
+        align-items: center;
+    }
+
+    .comment-info {
+        height: 100%;
+        width: auto;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 8px;
+
+        .user-row {
+            display: flex;
+            gap: 10px;
+
+            .comment-username {
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .comment-hour {
+                font-size: 15px;
+                color: darken($color: $text-color, $amount: 25%);
+            }
+        }
+
+        .reply-row {
+            color: darken($color: $text-color, $amount: 25%);
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+
+            .reply-item {
+                cursor: pointer;
+            }
+        }
+
+        .more-comments {
+            margin: 6px 0 0 56px;
+            color: darken($color: $text-color, $amount: 25%);
+            font-size: 14px;
+            cursor: pointer;
+        }
+    }
+
+    .comment-like {
+        width: 24px;
+        cursor: pointer;
+        color: $text-color;
+        display: flex;
+        flex-direction: column;
+        margin: 24px 4px;
+        align-items: center;
+        font-size: 16px;
+
+        .like-count {
+            font-size: 14px;
+        }
+    }
+}

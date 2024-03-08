@@ -5,13 +5,14 @@ import { Like, Publication as PublicationType, TypeOfPublication } from '../../t
 import { formatLongData, FormatNumberToString } from '../../Helper';
 import { DESLIKE, LIKE } from '../../graphql/mutations/publication';
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineModeComment } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
 import { HiOutlineSave } from "react-icons/hi";
 import { useMutation } from '@apollo/client';
+import BottomModal from '../BottomModal/BottomModal';
 
 interface PublicationProps {
     data: PublicationType;
@@ -24,6 +25,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
     const [ hasAds ] = useState(data.type === TypeOfPublication.ADVERTISEMENT);
     const [ likeCounter, setLikeCounter ] = useState<number>(data?.likes?.length | 0);
     const [ isLikesModalOpen, setIsLikesModalOpen ] = useState<Boolean>(false);
+    const [ isCommentModalOpen, setIsCommentModalOpen ] = useState<Boolean>(false);
 
     const [ addLike ] = useMutation(LIKE);
     const [ removeLike ] = useMutation(DESLIKE);
@@ -109,13 +111,13 @@ function Publication({ data, userIdLogged }: PublicationProps) {
                             { data.description }
                         { !isDescriptinExpanded && data.description && data.description?.length > 30 && (
                             <span className='show-more' 
-                                onClick={() => data.likes.length > 0 && setIsDescriptinExpanded(true)}>
+                                onClick={() => setIsDescriptinExpanded(true)}>
                                 mais
                             </span>
                         )}
                     </div>
                     { data.comments && data.comments.length > 0 && (
-                        <div className='all-comments'>
+                        <div className='all-comments' onClick={() => setIsCommentModalOpen(true)}>
                             Ver { data.comments.length > 1 ? ' todos os ' + data.comments.length + ' comentários' : 'comentário' } 
                         </div>
                     )}
@@ -126,7 +128,8 @@ function Publication({ data, userIdLogged }: PublicationProps) {
                 </div>
             </div>
 
-            { isLikesModalOpen && <Likes views={data?.views} data={data?.likes} closePage={() => setIsLikesModalOpen(false)} />}
+            { isLikesModalOpen && <Likes views={data?.views} data={data?.likes} closePage={() => setIsLikesModalOpen(false)} /> }
+            { isCommentModalOpen && <BottomModal closeModal={() => setIsCommentModalOpen(false)} /> }
         </>
     );
 }

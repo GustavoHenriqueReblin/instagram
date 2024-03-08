@@ -24,10 +24,11 @@
         }
     
         @media screen and (min-width: 796px) {
-            width: 430px;
+            width: 460px;
             height: 440px;
             border-radius: 10px;
             background-color: $main-gray;
+            padding: 6px 30px; 
         }
 
         .likes-header {
