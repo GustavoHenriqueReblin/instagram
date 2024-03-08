@@ -2,6 +2,7 @@ import './likes.scss';
 import { Like as LikeType } from '../../types/types';
 import Input from '../../components/Input/Input';
 import Like from '../../components/Like/Like';
+import { FormatNumberToString } from '../../Helper';
 
 import React from "react";
 import { useMediaQuery } from "@uidotdev/usehooks";
@@ -11,10 +12,11 @@ import { BsPlay } from "react-icons/bs";
 
 interface LikesProps {
     data?: LikeType[];
+    views: number;
     closePage: () => void;
 };
 
-function Likes({ data, closePage }: LikesProps) {
+function Likes({ data, views, closePage }: LikesProps) {
     const desktopScreen = useMediaQuery('(min-width: 796px)');
     const validateClick = (e: any) => {
         desktopScreen && e.target.className === 'likes-container' && closePage();
@@ -35,39 +37,27 @@ function Likes({ data, closePage }: LikesProps) {
                 
                 {!desktopScreen && <div className='likes-input'><Input /></div>}
 
-                {desktopScreen && (
-                    <span className='views'>
-                        <span className='view-icon'>
-                            <BsPlay />
-                        </span>
-                        116.856 reproduções
+                <span className='views'>
+                    <span className='view-icon'>
+                        <BsPlay />
                     </span>
-                )}
+                    <>{ FormatNumberToString(views, 'reprodução', 'reproduções', 'Nenhuma reprodução') }</>
+                </span>
 
-                {desktopScreen && (
-                    <div className='liked-by-container'>
-                        <span className='liked-by'>CURTIDO POR</span>
-                        <span className='likes-count'>3.920 curtidas</span>
-                    </div>
-                )}
+                <div className='liked-by-container'>
+                    <span className='liked-by'>CURTIDO POR</span>
+                    <span className='likes-count'>{FormatNumberToString(data?.length, 'curtida', 'curtidas', 'Nenhuma curtida') }</span>
+                </div>
 
                 <div className='line'></div>
                 
                 <div className='likes'>
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
-                    <Like />
+                    { data && data.length > 0
+                        ? data.map((like: LikeType) => (
+                            <Like key={like.id} data={like} />
+                        ))
+                        : (<span className='no-more-content'>Nenhuma curtida</span>) 
+                    }
                 </div>
             </div>
         </div>

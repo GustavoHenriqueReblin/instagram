@@ -3,6 +3,8 @@ import { gql } from '@apollo/client';
 export const FindMany = gql`
     query Publications($input: PublicationInput!) {
         publications(input: $input) {
+            error
+            message
             data {
                 id
                 categoryId
@@ -10,33 +12,57 @@ export const FindMany = gql`
                 userId
                 dateTime
                 description
+                comments {
+                    id
+                    userId
+                    publicationId
+                    dateTime
+                    description
+                    username
+                    photoURL
+                    commentsReply {
+                        id
+                        userId
+                        commentId
+                        commentReplyId
+                        dateTime
+                        description
+                        username
+                        photoURL
+                        likes {
+                            id
+                            userId
+                            commentId
+                            commentReplyId
+                            name
+                            username
+                            photoURL
+                        }
+                    }
+                    likes {
+                        id
+                        userId
+                        commentId
+                        commentReplyId
+                        name
+                        username
+                        photoURL
+                    }
+                }
                 fileUrl
                 username
                 category
                 type
-                comments {
-                    description
-                    userId
-                    username
-                    photoURL
-                    commentsReply {
-                        commentId
-                        photoURL
-                        dateTime
-                        description
-                        username
-                    }
-                }
+                views
                 likes {
                     id
                     userId
+                    publicationId
                     username
                     name
                     photoURL
                 }
             }
-            error
-            message
         }
     }
 `;

@@ -1,7 +1,9 @@
 import './publication.scss';
 import Story from '../Story/Story';
+import Likes from '../../pages/Likes/Likes';
 import { Like, Publication as PublicationType, TypeOfPublication } from '../../types/types';
-import { formatLongData } from '../../Helper';
+import { formatLongData, FormatNumberToString } from '../../Helper';
+import { DESLIKE, LIKE } from '../../graphql/mutations/publication';
 
 import React, { useMemo, useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -10,8 +12,6 @@ import { MdOutlineModeComment } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
 import { HiOutlineSave } from "react-icons/hi";
 import { useMutation } from '@apollo/client';
-import { DESLIKE, LIKE } from '../../graphql/mutations/publication';
-import Likes from '../../pages/Likes/Likes';
 
 interface PublicationProps {
     data: PublicationType;
@@ -22,7 +22,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
     const [ isDescriptinExpanded, setIsDescriptinExpanded ] = useState<Boolean>(false);
     const [ myLike, setMyLike ] = useState<Like | undefined>(data.likes.find(like => like.userId === userIdLogged));
     const [ hasAds ] = useState(data.type === TypeOfPublication.ADVERTISEMENT);
-    const [ likeCounter, setLikeCounter ] = useState<number | undefined>(data?.likes?.length);
+    const [ likeCounter, setLikeCounter ] = useState<number>(data?.likes?.length | 0);
     const [ isLikesModalOpen, setIsLikesModalOpen ] = useState<Boolean>(false);
 
     const [ addLike ] = useMutation(LIKE);
@@ -32,23 +32,10 @@ function Publication({ data, userIdLogged }: PublicationProps) {
     const hasLocation = false;
     const locationName = '';
 
-    const getLikesString = () => {
-        if (likeCounter) {
-            const newLikeValue = likeCounter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            if (likeCounter > 1) {
-                return newLikeValue + ' curtidas';
-            } else {
-                return newLikeValue + ' curtida';
-            }
-        } else {
-            return 'Nenhuma curtida';
-        }
-    };
-
     const changeLike = async () => {
         if (!!myLike) {
             setMyLike(undefined);
-            likeCounter && setLikeCounter(likeCounter - 1);
+            setLikeCounter(likeCounter - 1);
             await removeLike({
                 variables: {
                     input: {
@@ -59,10 +46,10 @@ function Publication({ data, userIdLogged }: PublicationProps) {
             .catch((error) => {
                 console.error('Erro ao remover o like: ', error);
                 setMyLike(myLike);
-                likeCounter && setLikeCounter(likeCounter + 1);
+                setLikeCounter(likeCounter + 1);
             });
         } else {
-            likeCounter && setLikeCounter(likeCounter + 1);
+            setLikeCounter(likeCounter + 1);
             addLike({
                 variables: {
                     input: {
@@ -77,7 +64,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
             })
             .catch((error) => {
                 console.error('Erro ao registrar o like: ', error);
-                likeCounter && setLikeCounter(likeCounter - 1);
+                setLikeCounter(likeCounter - 1);
                 setMyLike(undefined);
             });
         }
@@ -115,7 +102,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
 
                 <div className='comments-container'>
                     <div className='likes' onClick={() => {setIsLikesModalOpen(true)}}>
-                        { getLikesString() } 
+                        { FormatNumberToString(likeCounter, 'curtida', 'curtidas', 'Nenhuma curtida') } 
                     </div>
                     <div className={`description ${isDescriptinExpanded ? 'expanded': ''}`}>
                         <span className='user'>{ data.username }</span>
@@ -139,7 +126,7 @@ function Publication({ data, userIdLogged }: PublicationProps) {
                 </div>
             </div>
 
-            { isLikesModalOpen && <Likes closePage={() => setIsLikesModalOpen(false)} />}
+            { isLikesModalOpen && <Likes views={data?.views} data={data?.likes} closePage={() => setIsLikesModalOpen(false)} />}
         </>
     );
 }

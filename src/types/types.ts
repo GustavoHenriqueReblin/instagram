@@ -18,6 +18,7 @@ export type Publication = {
     type: TypeOfPublication,
     likes: Like[],
     comments: Comment[],
+    views: number
 };
 
 export type Comment = {
@@ -27,6 +28,8 @@ export type Comment = {
     dateTime: Date,
     description: string,
     commentsReply: CommentReply[]
+    username: string,
+    photoURL: string,
 };
 
 export type CommentReply = {
@@ -35,12 +38,17 @@ export type CommentReply = {
     commentId: number,
     dateTime: Date,
     description: string
+    username: string,
+    photoURL: string,
 };
 
 export type Like = {
     id: number,
     userId: number,
-    publicationId: number
+    publicationId: number,
+    username: string,
+    name: string,
+    photoURL: string,
 };
 
 export enum TypeOfPublication {
