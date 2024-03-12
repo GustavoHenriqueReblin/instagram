@@ -5,6 +5,7 @@ import { Like, Publication as PublicationType, TypeOfPublication, User } from '.
 import { formatLongData, FormatNumberToString } from '../../Helper';
 import { DESLIKE, LIKE } from '../../graphql/mutations/publication';
 import BottomModal from '../BottomModal/BottomModal';
+import Comment from '../Comment/Comment';
 
 import React, { useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -13,6 +14,7 @@ import { MdOutlineModeComment } from "react-icons/md";
 import { LuSend } from "react-icons/lu";
 import { HiOutlineSave } from "react-icons/hi";
 import { useMutation } from '@apollo/client';
+import { useMediaQuery } from '@uidotdev/usehooks';
 
 interface PublicationProps {
     data: PublicationType;
@@ -27,6 +29,7 @@ function Publication({ data, userLogged }: PublicationProps) {
     const [ isLikesModalOpen, setIsLikesModalOpen ] = useState<Boolean>(false);
     const [ isCommentModalOpen, setIsCommentModalOpen ] = useState<Boolean>(false);
 
+    const desktopScreen = useMediaQuery('(min-width: 796px)');
     const [ addLike ] = useMutation(LIKE);
     const [ removeLike ] = useMutation(DESLIKE);
 
@@ -72,6 +75,25 @@ function Publication({ data, userLogged }: PublicationProps) {
                 setMyLike(undefined);
             });
         }
+    };
+
+    const commentsContent = () => {
+        return (
+            <>
+                { !desktopScreen && 
+                    <div className='comments-header'>
+                        <div className='comment-title-container'>
+                            <span>Comentários</span>
+                        </div>
+                    </div> 
+                }
+                <div className="comment-modal-content">
+                    { data.comments && data.comments.map((comment) => (
+                        <Comment key={comment.id} data={comment} />
+                    ))}
+                </div>
+            </>
+        )
     };
 
     return (
@@ -131,7 +153,7 @@ function Publication({ data, userLogged }: PublicationProps) {
             </div>
 
             { isLikesModalOpen && <Likes views={data?.views} data={postLikes} closePage={() => setIsLikesModalOpen(false)} /> }
-            { isCommentModalOpen && <BottomModal closeModal={() => setIsCommentModalOpen(false)} /> }
+            { isCommentModalOpen && <BottomModal closeModal={() => setIsCommentModalOpen(false)} content={commentsContent()} /> }
         </>
     );
 }

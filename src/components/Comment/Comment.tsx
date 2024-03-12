@@ -4,8 +4,14 @@ import React, { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import Story from '../Story/Story';
 import { useMediaQuery } from '@uidotdev/usehooks';
+import { Comment as CommentType } from '../../types/types';
+import { FormatNumberToString, getTimeAgo } from '../../Helper';
 
-function Comment() {
+interface CommentProps {
+    data?: CommentType;
+};
+
+function Comment({ data }: CommentProps) {
     const desktopScreen = useMediaQuery('(min-width: 796px)');
     const [ myLike, setMyLike ] = useState(true);
 
@@ -18,15 +24,22 @@ function Comment() {
                     </div>
                     <div className="comment-info">
                         <div className='user-row'>
-                            <span className='comment-username'>username</span>
-                            <span className='comment-hour'>4h</span>
+                            <span className='comment-username'>{ data?.username }</span>
+                            <span className='comment-hour'>{ getTimeAgo(data?.dateTime) }</span>
                         </div>
-                        <span>Conteúdo do comentário</span>
+                        <span>{ data?.description }</span>
                         <div className='reply-row'>
                             <span className='reply-item'>Responder</span>
                             <span className='reply-item'>Ver tradução</span>
                         </div>
-                        <span className='more-comments'>Ver mais 2 respostas</span>
+                        { data?.commentsReply && data?.commentsReply.length > 0 &&
+                            <span className='more-comments'>{ FormatNumberToString(
+                                data?.commentsReply.length, 
+                                'Ver mais 1 resposta', 
+                                'Ver mais ' + data?.commentsReply.length + ' respostas', 
+                                '', false
+                            )}</span>
+                        }
                     </div>
                     <span className="comment-like">
                         { !myLike 
