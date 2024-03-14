@@ -8,12 +8,12 @@ interface BottomModalProps {
 
 function BottomModal({ closeModal, content }: BottomModalProps) {
     const validateClick = (e: any) => {
-        e.target.className === 'comments-modal-container' && closeModal();
+        e.target.className === 'bottom-modal-container' && closeModal();
     };
 
     return (
-        <div className='comments-modal-container' onClick={(e) => validateClick(e)}>
-            <div className='comments-content'>
+        <div className='bottom-modal-container' onClick={(e) => validateClick(e)}>
+            <div className='bottom-modal-content'>
                 { content }
             </div>
         </div>

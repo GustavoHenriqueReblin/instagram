@@ -1,11 +1,11 @@
 import './publication.scss';
 import Story from '../Story/Story';
 import Likes from '../../pages/Likes/Likes';
+import CommentContainer from '../CommentContainer/CommentContainer';
+import BottomModal from '../BottomModal/BottomModal';
 import { Like, Publication as PublicationType, TypeOfPublication, User } from '../../types/types';
 import { formatLongData, FormatNumberToString } from '../../Helper';
 import { DESLIKE, LIKE } from '../../graphql/mutations/publication';
-import BottomModal from '../BottomModal/BottomModal';
-import Comment from '../Comment/Comment';
 
 import React, { useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -77,25 +77,6 @@ function Publication({ data, userLogged }: PublicationProps) {
         }
     };
 
-    const commentsContent = () => {
-        return (
-            <>
-                { !desktopScreen && 
-                    <div className='comments-header'>
-                        <div className='comment-title-container'>
-                            <span>Comentários</span>
-                        </div>
-                    </div> 
-                }
-                <div className="comment-modal-content">
-                    { data.comments && data.comments.map((comment) => (
-                        <Comment key={comment.id} data={comment} />
-                    ))}
-                </div>
-            </>
-        )
-    };
-
     return (
         <>
             <div className='publi-container'>
@@ -126,7 +107,7 @@ function Publication({ data, userLogged }: PublicationProps) {
                     <span className='publi-icon last'><HiOutlineSave /></span>
                 </div>
 
-                <div className='comments-container'>
+                <div className='options-container'>
                     <div className='likes' onClick={() => {setIsLikesModalOpen(true)}}>
                         { FormatNumberToString(postLikes.length, 'curtida', 'curtidas', 'Nenhuma curtida') } 
                     </div>
@@ -153,7 +134,10 @@ function Publication({ data, userLogged }: PublicationProps) {
             </div>
 
             { isLikesModalOpen && <Likes views={data?.views} data={postLikes} closePage={() => setIsLikesModalOpen(false)} /> }
-            { isCommentModalOpen && <BottomModal closeModal={() => setIsCommentModalOpen(false)} content={commentsContent()} /> }
+            { isCommentModalOpen && 
+                <BottomModal closeModal={() => setIsCommentModalOpen(false)} 
+                content={ <CommentContainer data={ data.comments } /> } 
+            /> }
         </>
     );
 }
