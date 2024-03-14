@@ -112,13 +112,13 @@ function Publication({ data, userLogged }: PublicationProps) {
                         { FormatNumberToString(postLikes.length, 'curtida', 'curtidas', 'Nenhuma curtida') } 
                     </div>
                     <div className={`description ${isDescriptinExpanded ? 'expanded': ''}`}>
-                        <span className='user'>{ data.username }</span>
+                        <span className='user'>{ data.username } </span>
                             { data.description }
                         { !isDescriptinExpanded && data.description && data.description?.length > 30 && (
-                            <span className='show-more' 
+                            <div className='show-more' 
                                 onClick={() => setIsDescriptinExpanded(true)}>
                                 mais
-                            </span>
+                            </div>
                         )}
                     </div>
                     { data.comments && data.comments.length > 0 && (
@@ -136,7 +136,11 @@ function Publication({ data, userLogged }: PublicationProps) {
             { isLikesModalOpen && <Likes views={data?.views} data={postLikes} closePage={() => setIsLikesModalOpen(false)} /> }
             { isCommentModalOpen && 
                 <BottomModal closeModal={() => setIsCommentModalOpen(false)} 
-                content={ <CommentContainer data={ data.comments } /> } 
+                content={ <CommentContainer 
+                    imagesContent={ data.type === TypeOfPublication.IMAGE ? <img className='image' src={ data.fileUrl } alt=""/> : <></> }
+                    usernameOwner={ data.username } 
+                    data={ data.comments } 
+                />} 
             /> }
         </>
     );

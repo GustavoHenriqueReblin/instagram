@@ -5,12 +5,15 @@ import { FormatNumberToString } from '../../Helper';
 
 import React, { useState } from "react";
 import { useMediaQuery } from '@uidotdev/usehooks';
+import Story from '../Story/Story';
 
 interface CommentContainerProps {
+    usernameOwner: string;
+    imagesContent: React.JSX.Element;
     data?: CommentType[];
 };
 
-function CommentContainer({ data }: CommentContainerProps) {
+function CommentContainer({ usernameOwner, imagesContent, data }: CommentContainerProps) {
     const desktopScreen = useMediaQuery('(min-width: 796px)');
     const [ commentsIdsAreShowingReplies, setCommentsIdsAreShowingReplies ] = useState<number[]>([] as number[]);
 
@@ -29,9 +32,15 @@ function CommentContainer({ data }: CommentContainerProps) {
                 </div> 
             }
             { desktopScreen && 
-                <div className='photo-comment-container'></div>
+                <div className='photo-comment-container'>
+                    { imagesContent }
+                </div>
             }
             <div className='comment-content-area'>
+                { desktopScreen && <div className='user-owner'>
+                    <Story fromPubli={ true } />
+                    <span>{ usernameOwner }</span>
+                </div> }
                 { data && data.map((comment) => (
                     <>
                         <Comment key={ comment.id } data={ comment } />
