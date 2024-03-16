@@ -4,7 +4,6 @@
     height: 100%;
     width: 100%;
     display: flex;
-    overflow-y: auto;
 
     @media screen and (min-width: 1px) {
         flex-direction: column;
@@ -47,26 +46,22 @@
         
         .image {
             object-fit: contain;
+            height: 100%;
         }
     }
 
     .comment-content-area {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
+        flex-grow: 1;
 
         @media screen and (min-width: 1px) {
             height: calc(100% - 56px);
-            width: 100%;
             padding-top: 64px;
         }
     
         @media screen and (min-width: 1024px) {
             height: 100%;
-            width: 50%;
-            min-width: 30%;
-            max-width: 60%;
             padding-top: 0;
         }
 
@@ -86,18 +81,60 @@
             }
         }
 
-        .show-replies-area {
+        .comment-scrollable-content {
             width: 100%;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-end;
             justify-content: flex-start;
-            font-size: 12px;
-            color: lighten($color: $main-gray, $amount: 40%);
-            padding: 2px 120px;
-            margin-bottom: 6px;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-bottom: 8px;
 
-            .show-replies {
-                cursor: pointer;
+            .show-replies-area {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                font-size: 12px;
+                color: lighten($color: $main-gray, $amount: 40%);
+                padding: 2px 120px;
+                margin-bottom: 6px;
+
+                .show-replies {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .comment-input-area {
+            width: 100%;
+            height: 92px;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            padding: 0 21px;
+            gap: 14px;
+
+            .user-photo-profile {
+                height: 32px;
+                width: 46px;
+                border-radius: 50%;
+                background-color: $text-color;
+            }
+
+            .comment-input {
+                flex-grow: 1;
+            }
+
+            .publish-button-area {
+                margin-right: 10px;
+
+                .publish-button {
+                    cursor: pointer;
+                    color: darken($color: $text-color, $amount: 20%);
+                    font-weight: 600;
+                }
             }
         }
     }

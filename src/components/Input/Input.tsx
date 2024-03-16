@@ -1,13 +1,17 @@
 import './input.scss';
-
 import React from "react";
-import { IoSearch } from "react-icons/io5";
 
-function Input() {
+interface InputProps {
+    icon?: any;
+    placeholder: string;
+    inputClass: string;
+};
+
+function Input({ icon, placeholder, inputClass }: InputProps) {
     return (
         <div className='input-container'>
-            <span className='search-icon'><IoSearch /></span>
-            <input type="text" placeholder='Pesquisar' className='input'></input>
+            { icon && (<span className='search-icon'>{ icon }</span>) }
+            <input type="text" placeholder={ placeholder } className={ inputClass }></input>
         </div>
     )
 }

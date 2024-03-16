@@ -9,6 +9,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { BsPlay } from "react-icons/bs";
+import { IoSearch } from "react-icons/io5";
 
 interface LikesProps {
     data?: LikeType[];
@@ -35,7 +36,9 @@ function Likes({ data, views, closePage }: LikesProps) {
                     )}
                 </div>
                 
-                {!desktopScreen && <div className='likes-input'><Input /></div>}
+                {!desktopScreen && <div className='likes-input'>
+                    <Input icon={<IoSearch />} placeholder={'Pesquisar'} inputClass={'input radius'} />
+                </div>}
 
                 <span className='views'>
                     <span className='view-icon'>
