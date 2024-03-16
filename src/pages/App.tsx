@@ -22,19 +22,19 @@ function App() {
   return (
     <BrowserRouter>
       <ResponsiveProvider>
-        <AuthProvider>
-          <Routes>
-            <Route path="/login" element={<Login></Login>} />
-            <Route 
-              path='/' element={
+        <Routes>
+          <Route path="/login" element={<Login></Login>} />
+          <Route 
+            path='/' element={
+              <AuthProvider>
                 <PrivateRoute redirectTo="/login" cookieName={process.env.REACT_APP_COOKIE_NAME_USER_TOKEN}> 
                   <Timeline></Timeline>
                 </PrivateRoute>
-              } 
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </AuthProvider>
+              </AuthProvider>
+            } 
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </ResponsiveProvider>
     </BrowserRouter>
   );

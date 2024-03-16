@@ -23,7 +23,7 @@ function Timeline() {
         onCompleted: (res) => {
             loading && setTimeout(() => {
                 setLoading(false);
-            }, Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000);
+            }, Math.floor(Math.random() * (2200 - 1000 + 1)) + 1000);
         },
         onError: (err) => {
             console.error(err);
@@ -32,14 +32,14 @@ function Timeline() {
     });
 
     useEffect(() => {
+        const cookieName = process.env.REACT_APP_COOKIE_NAME_USER_TOKEN;
+        if (cookieName) {
+            const userToken = Cookies.get(cookieName);
+            !userToken && navigate('/login', { replace: true });
+        };
+
         user && getPublications({ variables: { input: { userId: user.id } } });
     }, [user, getPublications]);
-
-    const cookieName = process.env.REACT_APP_COOKIE_NAME_USER_TOKEN;
-    if (cookieName) {
-        const userToken = Cookies.get(cookieName);
-        !userToken && navigate('/login', { replace: true });
-    };
 
     return (
         <>

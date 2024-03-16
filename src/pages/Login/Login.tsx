@@ -1,7 +1,7 @@
 import './login.scss';
 import { FindOne } from '../../graphql/queries/user';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -52,6 +52,14 @@ function Login() {
             console.error("Erro ao buscar o usuário: ", error);
         });
     };
+
+    useEffect(() => {
+        const cookieName = process.env.REACT_APP_COOKIE_NAME_USER_TOKEN;
+        if (cookieName) {
+            const userToken = Cookies.get(cookieName);
+            userToken && navigate('/', { replace: true });
+        };
+    });
 
     loading && setLoading(false);
 

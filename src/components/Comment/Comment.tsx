@@ -3,16 +3,14 @@ import React, { useState } from "react";
 
 import { FaRegHeart } from "react-icons/fa";
 import Story from '../Story/Story';
-import { useMediaQuery } from '@uidotdev/usehooks';
 import { Comment as CommentType, CommentReply as CommentReplyType} from '../../types/types';
-import { FormatNumberToString, getTimeAgo } from '../../Helper';
+import { getTimeAgo } from '../../Helper';
 
 interface CommentProps {
     data?: CommentType | CommentReplyType;
 };
 
 function Comment({ data }: CommentProps) {
-    const [ myLike, setMyLike ] = useState(true);
     const isAComment = data && 'publicationId' in data;
 
     return (
